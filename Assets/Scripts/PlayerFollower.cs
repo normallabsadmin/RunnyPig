@@ -5,6 +5,7 @@ public class PlayerFollower : MonoBehaviour {
 
     private GameObject _myTarget;
     public float _xOffset;
+    public float _yOffset;
  
 
 
@@ -17,7 +18,7 @@ public class PlayerFollower : MonoBehaviour {
 	void FixedUpdate () {
         var playerPos = _myTarget.transform.position;
         playerPos.x += _xOffset;
-        playerPos.y = 0 ;
+        playerPos.y += _yOffset;
         playerPos.z = 0;
         transform.position =  playerPos;
 	}

@@ -7,8 +7,10 @@ public class GameManager : MonoBehaviour {
     public float _timeScaleMulti = 1;
     private float _lastTSM;
 
-	// Use this for initialization
-	void Start () {
+   
+
+    // Use this for initialization
+    void Start () {
 	
 	}
 	
@@ -21,4 +23,5 @@ public class GameManager : MonoBehaviour {
 
         _lastTSM = _timeScaleMulti;
 	}
+
 }

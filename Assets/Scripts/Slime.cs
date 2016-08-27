@@ -8,7 +8,7 @@ public class Slime : MonoBehaviour
     void Start()
     {
         var rando = Random.Range(1, 3);
-        Debug.Log(rando);
+        //Debug.Log(rando);
         if (rando == 1)
         {
             gameObject.transform.FindChild("Sprite_1").gameObject.SetActive(false);

@@ -32,28 +32,14 @@ public class RunnyPig : MonoBehaviour {
             var currentSpeed = Mathf.Clamp(_speed, 0f, _maxSpeed);
             transform.Translate((Vector2.right * Time.deltaTime) * currentSpeed);
             #region jump controls
-            //long jump
             if (Input.GetKey(KeyCode.UpArrow))
             {
-
-                if (_onGround)
-                {
-                    _myAnimator.SetTrigger("WarmJump");
-                    _onGround = false;
-                }
-
-                Invoke("HighJump", _highJumpDelay * Time.deltaTime);
-                Invoke("LongJump", _longJumpDelay * Time.deltaTime);
+                InputJump();
             }
             #endregion
 
             #region ducking controls
-            if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                StartDucking();
-            }
-
-            if (Input.GetKey(KeyCode.DownArrow))
+            if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKey(KeyCode.DownArrow))
             {
                 StartDucking();
             }
@@ -67,17 +53,61 @@ public class RunnyPig : MonoBehaviour {
                 StopDucking();
             }
             #endregion
+
+            #region touch controls
+            if (Input.touchCount > 0)
+            {
+                var touch = Input.GetTouch(0);
+                if (touch.position.y > Screen.height / 2)
+                {
+                    InputJump();
+                }
+                else if (touch.position.y < Screen.height / 2)
+                {
+                    StartDucking();
+                }
+                else
+                {
+                    StopDucking();
+                }
+            }
+            #endregion
         }
+    }
+
+    void InputJump()
+    {
+        if (_onGround)
+        {
+            _myAnimator.SetTrigger("WarmJump");
+            _onGround = false;
+        }
+        //Mobile version is having trouble with the high jump so we're taking it away for now
+        //Invoke("HighJump", _highJumpDelay * Time.deltaTime);
+        Invoke("LongJump", _longJumpDelay * Time.deltaTime);
     }
 
     void HighJump()
     {
         if (!_isJumping && !Input.GetKey(KeyCode.UpArrow))
         {
-            CancelInvoke();
-            _isJumping = true;
-            Debug.Log("High jump");
-            _myAnimator.SetTrigger("HighJump");
+           
+        }
+        else if (!_isJumping && 
+           (
+               (Input.touchCount <= 0) ||
+               ((Input.touchCount > 0) && (Input.GetTouch(0).position.y > Screen.height / 2))
+            )
+        )
+        {
+            var touch = Input.GetTouch(0);
+            if (touch.position.y < Screen.height / 2)
+            {
+                CancelInvoke();
+                _isJumping = true;
+                Debug.Log("High jump");
+                _myAnimator.SetTrigger("HighJump");
+            }
         }
     }
 
@@ -87,7 +117,7 @@ public class RunnyPig : MonoBehaviour {
         {
             CancelInvoke();
             _isJumping = true;
-            Debug.Log("Low jump");
+            //Debug.Log("Low jump");
             _myAnimator.SetTrigger("LowJump");
         }
     }
