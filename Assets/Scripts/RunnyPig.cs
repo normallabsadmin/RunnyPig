@@ -3,8 +3,11 @@ using System.Collections;
 
 public class RunnyPig : MonoBehaviour {
 
+    public GameManager _gameManager;
+
     [Range(0f,10f)]
     public float _speed;
+    public float _startingSpeed = 3.5f;
     public float _maxSpeed;
     public float _highJumpDelay = 0.1f;
     public float _longJumpDelay = 0.5f;
@@ -23,9 +26,23 @@ public class RunnyPig : MonoBehaviour {
 	void Start () {
         _myAnimator = GetComponent<Animator>();
 	}
+
+    public void StartGame()
+    {
+        _speed = _startingSpeed;
+        _myAnimator.SetBool("isStanding", false);
+    }
 	
 	void FixedUpdate()
     {
+        if(_speed == 0)
+        {
+            _myAnimator.SetBool("isStanding", true);
+        }else
+        {
+            _myAnimator.SetBool("isStanding", false);
+        }
+
 
         if (!_isDead)
         {
@@ -152,6 +169,11 @@ public class RunnyPig : MonoBehaviour {
         _myAnimator.SetBool("isDead", true);
         _speed = 0f;
         _isDead = true;
+    }
+
+    public void PlayerEndGame()
+    {
+        _gameManager.EndGame();
     }
 
 }
