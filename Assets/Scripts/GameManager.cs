@@ -3,7 +3,7 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour {
 
-    [Range(1f,10f)]
+    [Range(0.1f,10f)]
     public float _timeScaleMulti = 1;
     private float _lastTSM;
 

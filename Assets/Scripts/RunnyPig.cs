@@ -15,6 +15,7 @@ public class RunnyPig : MonoBehaviour {
     public bool _isRunning;
     public bool _isJumping;
     public bool _isDucking;
+    public bool _isDead;
 
     private Animator _myAnimator;
 
@@ -26,44 +27,47 @@ public class RunnyPig : MonoBehaviour {
 	void FixedUpdate()
     {
 
-
-        var currentSpeed = Mathf.Clamp(_speed, 0f, _maxSpeed);
-        transform.Translate((Vector2.right * Time.deltaTime) * currentSpeed);
-
-        //long jump
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (!_isDead)
         {
-
-            if (_onGround)
+            var currentSpeed = Mathf.Clamp(_speed, 0f, _maxSpeed);
+            transform.Translate((Vector2.right * Time.deltaTime) * currentSpeed);
+            #region jump controls
+            //long jump
+            if (Input.GetKey(KeyCode.UpArrow))
             {
-                _myAnimator.SetTrigger("WarmJump");
-                _onGround = false;
+
+                if (_onGround)
+                {
+                    _myAnimator.SetTrigger("WarmJump");
+                    _onGround = false;
+                }
+
+                Invoke("HighJump", _highJumpDelay * Time.deltaTime);
+                Invoke("LongJump", _longJumpDelay * Time.deltaTime);
+            }
+            #endregion
+
+            #region ducking controls
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                StartDucking();
             }
 
-            Invoke("HighJump", _highJumpDelay);
-            Invoke("LongJump", _longJumpDelay);
-        }
-       
-        #region ducking controls
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            StartDucking();
-        }
+            if (Input.GetKey(KeyCode.DownArrow))
+            {
+                StartDucking();
+            }
+            else
+            {
+                StopDucking();
+            }
 
-        if (Input.GetKey(KeyCode.DownArrow))
-        {
-            StartDucking();
+            if (Input.GetKeyUp(KeyCode.DownArrow))
+            {
+                StopDucking();
+            }
+            #endregion
         }
-        else
-        {
-            StopDucking();
-        }
-
-        if (Input.GetKeyUp(KeyCode.DownArrow))
-        {
-            StopDucking();
-        }
-        #endregion
     }
 
     void HighJump()
@@ -72,7 +76,7 @@ public class RunnyPig : MonoBehaviour {
         {
             CancelInvoke();
             _isJumping = true;
-            //Debug.Log("High jump");
+            Debug.Log("High jump");
             _myAnimator.SetTrigger("HighJump");
         }
     }
@@ -83,14 +87,14 @@ public class RunnyPig : MonoBehaviour {
         {
             CancelInvoke();
             _isJumping = true;
-            //Debug.Log("Low jump");
+            Debug.Log("Low jump");
             _myAnimator.SetTrigger("LowJump");
         }
     }
 
     public void HitGround()
     {
-        Debug.Log("Hit Ground");
+        //Debug.Log("Hit Ground");
         
         Invoke("GroundedDelay", _groundedDelay);
     }
@@ -115,8 +119,9 @@ public class RunnyPig : MonoBehaviour {
 
     public void PlayerDie()
     {
-        _myAnimator.SetTrigger("Dead");
+        _myAnimator.SetBool("isDead", true);
         _speed = 0f;
+        _isDead = true;
     }
 
 }
