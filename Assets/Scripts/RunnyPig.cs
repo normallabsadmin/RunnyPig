@@ -20,15 +20,17 @@ public class RunnyPig : MonoBehaviour {
     public bool _isDucking;
     public bool _isDead;
 
-    private int _activeSkin = PlayerPrefs.GetInt("ActiveCharacter");
-    private int _lastActiveSkin = 0;
+    public int _activeSkin= 0;
+    public int _lastActiveSkin = 0;
 
     private Animator _myAnimator;
 
 	// Use this for initialization
 	void Start () {
         _myAnimator = GetComponent<Animator>();
-	}
+        _activeSkin = PlayerPrefs.GetInt("ActiveCharacter");
+
+    }
 
     public void StartGame()
     {
@@ -38,8 +40,9 @@ public class RunnyPig : MonoBehaviour {
 	
 	void FixedUpdate()
     {
+        _activeSkin = PlayerPrefs.GetInt("ActiveCharacter");
 
-        if(_lastActiveSkin != _activeSkin)
+        if (_lastActiveSkin != _activeSkin)
         {
             ChangeSkin();
             _lastActiveSkin = _activeSkin;
@@ -196,7 +199,31 @@ public class RunnyPig : MonoBehaviour {
 
     public void ChangeSkin()
     {
+        gameObject.transform.FindChild("Skin (0)").gameObject.SetActive(false);
+        gameObject.transform.FindChild("Skin (1)").gameObject.SetActive(false);
+        gameObject.transform.FindChild("Skin (2)").gameObject.SetActive(false);
+        gameObject.transform.FindChild("Skin (3)").gameObject.SetActive(false);
 
+        if (_activeSkin == 0)
+        {
+            gameObject.transform.FindChild("Skin (0)").gameObject.SetActive(true);
+        }
+        else if (_activeSkin == 1)
+        {
+            gameObject.transform.FindChild("Skin (1)").gameObject.SetActive(true);
+        }
+        else if (_activeSkin == 2)
+        {
+            gameObject.transform.FindChild("Skin (2)").gameObject.SetActive(true);
+        }
+        else if (_activeSkin == 3)
+        {
+            gameObject.transform.FindChild("Skin (3)").gameObject.SetActive(true);
+        }
+        else
+        {
+            gameObject.transform.FindChild("Skin (0)").gameObject.SetActive(true);
+        }
     }
 
 }
