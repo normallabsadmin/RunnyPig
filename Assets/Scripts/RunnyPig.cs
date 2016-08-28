@@ -20,6 +20,9 @@ public class RunnyPig : MonoBehaviour {
     public bool _isDucking;
     public bool _isDead;
 
+    private int _activeSkin = PlayerPrefs.GetInt("ActiveCharacter");
+    private int _lastActiveSkin = 0;
+
     private Animator _myAnimator;
 
 	// Use this for initialization
@@ -35,6 +38,13 @@ public class RunnyPig : MonoBehaviour {
 	
 	void FixedUpdate()
     {
+
+        if(_lastActiveSkin != _activeSkin)
+        {
+            ChangeSkin();
+            _lastActiveSkin = _activeSkin;
+        }
+
         if(_speed == 0)
         {
             _myAnimator.SetBool("isStanding", true);
@@ -94,6 +104,13 @@ public class RunnyPig : MonoBehaviour {
 
     void InputJump()
     {
+
+        if (_onGround)
+        {
+            LongJump();
+        }
+
+        /*
         if (_onGround)
         {
             _myAnimator.SetTrigger("WarmJump");
@@ -102,6 +119,7 @@ public class RunnyPig : MonoBehaviour {
         //Mobile version is having trouble with the high jump so we're taking it away for now
         //Invoke("HighJump", _highJumpDelay * Time.deltaTime);
         Invoke("LongJump", _longJumpDelay * Time.deltaTime);
+        */
     }
 
     void HighJump()
@@ -132,7 +150,7 @@ public class RunnyPig : MonoBehaviour {
     {
         if (!_isJumping)
         {
-            CancelInvoke();
+           // CancelInvoke();
             _isJumping = true;
             //Debug.Log("Low jump");
             _myAnimator.SetTrigger("LowJump");
@@ -174,6 +192,11 @@ public class RunnyPig : MonoBehaviour {
     public void PlayerEndGame()
     {
         _gameManager.EndGame();
+    }
+
+    public void ChangeSkin()
+    {
+
     }
 
 }

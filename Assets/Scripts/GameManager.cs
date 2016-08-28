@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
@@ -36,8 +37,10 @@ public class GameManager : MonoBehaviour {
 
     public void EndGame()
     {
+        var newScore = _scoreBoard.GetComponent<ScoreManager>()._myScore;
         _scoreBoard.SetActive(false);
         _gameCanvas.SetActive(true);
+        _gameCanvas.GetComponent<GameOver>().SetScore(newScore);
         _goCanvas.SetActive(false);
         
     }
