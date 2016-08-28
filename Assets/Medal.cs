@@ -10,27 +10,27 @@ public class Medal : MonoBehaviour {
     {
         var medalHolder = GetComponent<Image>();
 
-        if(score < 10)
+        if(score < 25)
         {
             medalHolder.sprite = _medals[0];
         }
-        else if (score <= 25)
+        else if (score <= 50)
         {
             medalHolder.sprite = _medals[1];
         }
-        else if (score <= 50)
+        else if (score <= 75)
         {
             medalHolder.sprite = _medals[2];
         }
-        else if (score <= 75)
+        else if (score <= 100)
         {
             medalHolder.sprite = _medals[3];
         }
-        else if (score <= 100)
+        else if (score <= 150)
         {
             medalHolder.sprite = _medals[4];
         }
-        else if (score <= 250)
+        else if (score <= 200)
         {
             medalHolder.sprite = _medals[5];
         }
