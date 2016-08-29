@@ -47,7 +47,7 @@ public class RunnyPig : MonoBehaviour {
             ChangeSkin();
             _lastActiveSkin = _activeSkin;
         }
-
+        /*
         if(_speed == 0)
         {
             _myAnimator.SetBool("isStanding", true);
@@ -55,7 +55,7 @@ public class RunnyPig : MonoBehaviour {
         {
             _myAnimator.SetBool("isStanding", false);
         }
-
+        */
 
         if (!_isDead)
         {
