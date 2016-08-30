@@ -29,6 +29,7 @@ public class RunnyPig : MonoBehaviour {
 	void Start () {
         _myAnimator = GetComponent<Animator>();
         _activeSkin = PlayerPrefs.GetInt("ActiveCharacter");
+        _isDead = false;
 
     }
 
@@ -47,7 +48,7 @@ public class RunnyPig : MonoBehaviour {
             ChangeSkin();
             _lastActiveSkin = _activeSkin;
         }
-        /*
+        
         if(_speed == 0)
         {
             _myAnimator.SetBool("isStanding", true);
@@ -55,7 +56,7 @@ public class RunnyPig : MonoBehaviour {
         {
             _myAnimator.SetBool("isStanding", false);
         }
-        */
+        
 
         if (!_isDead)
         {
@@ -189,12 +190,18 @@ public class RunnyPig : MonoBehaviour {
     {
         _myAnimator.SetBool("isDead", true);
         _speed = 0f;
-        _isDead = true;
+
     }
 
     public void PlayerEndGame()
     {
-        _gameManager.EndGame();
+        if (!_isDead)
+        {
+            //Debug.Log("Die!");
+            _gameManager.EndGame();
+            _isDead = true;
+        }
+        
     }
 
     public void ChangeSkin()

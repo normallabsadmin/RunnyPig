@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Advertisements;
 
 public class GameManager : MonoBehaviour {
 
@@ -39,14 +40,35 @@ public class GameManager : MonoBehaviour {
     {
         var newScore = _scoreBoard.GetComponent<ScoreManager>()._myScore;
         _scoreBoard.SetActive(false);
+        
+        if(PlayerPrefs.GetInt("Deaths") < 15)
+        {
+            var dth = PlayerPrefs.GetInt("Deaths");
+            PlayerPrefs.SetInt("Deaths", dth + 1);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("Deaths", 0);
+            ShowAd();
+        }
+
+
         _gameCanvas.SetActive(true);
         _gameCanvas.GetComponent<GameOver>().SetScore(newScore);
         _goCanvas.SetActive(false);
         
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    public void ShowAd()
+    {
+        if (Advertisement.IsReady())
+        {
+            Advertisement.Show();
+        }
+    }
+
+    // Update is called once per frame
+    void Update () {
 	    if (_lastTSM != _timeScaleMulti)
         {
             Time.timeScale = _timeScaleMulti;

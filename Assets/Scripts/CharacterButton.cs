@@ -7,12 +7,20 @@ public class CharacterButton : MonoBehaviour {
     public Sprite _unlockedImage;
     public int _characterIndex;
     public bool _unlocked;
+    public int _cost;
+
+    public GameObject _unlocker;
 
     void Update()
     {
         var spritey = GetComponent<Image>();
 
         var thisCharacterPrefName = "CharacterUnlocked" + _characterIndex.ToString();
+
+        if(PlayerPrefs.GetInt("HighScore") >= _cost)
+        {
+            PlayerPrefs.SetInt(thisCharacterPrefName, 1);
+        }
 
         if(PlayerPrefs.GetInt(thisCharacterPrefName) == 1)
         {
@@ -33,7 +41,8 @@ public class CharacterButton : MonoBehaviour {
         }
         else
         {
-            Debug.Log("Character locked!");
+            _unlocker.SetActive(true);
+            _unlocker.GetComponent<CharacterUnlocker>().SetUp(_unlockedImage, _cost, _characterIndex);
         }
     }
 }
