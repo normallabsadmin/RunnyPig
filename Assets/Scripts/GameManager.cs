@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour {
         {
             PlayerPrefs.SetInt("Deaths", 0);
             if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer) { 
-                ShowAd();
+                //ShowAd();
             }
         }
 
@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour {
         _goCanvas.SetActive(false);
         
     }
-
+    /*
     public void ShowAd()
     {
         if (Advertisement.IsReady())
@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour {
             Advertisement.Show();
         }
     }
-
+    */
     // Update is called once per frame
     void Update () {
 	    if (_lastTSM != _timeScaleMulti)

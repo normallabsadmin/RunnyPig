@@ -23,7 +23,7 @@ public class CharacterUnlocker : MonoBehaviour {
     {
         this.gameObject.SetActive(false);
     }
-
+/*
     public void ShowRewardedAd()
     {
         if (Advertisement.IsReady("rewardedVideo"))
@@ -52,5 +52,6 @@ public class CharacterUnlocker : MonoBehaviour {
                 break;
         }
     }
+    */
 }
 

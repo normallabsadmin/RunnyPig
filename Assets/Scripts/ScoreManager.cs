@@ -32,7 +32,7 @@ public class ScoreManager : MonoBehaviour {
             _ones.sprite = _numberSprites[rest % 10];
 
             var gameManager = transform.parent.GetComponent<GameManager>();
-            gameManager._timeScaleMulti = 1 + ((float)_myScore/ _accelPlayRate);
+            gameManager._timeScaleMulti = 2 + ((float)_myScore/ _accelPlayRate);
 
             _previousScore = _myScore;
 

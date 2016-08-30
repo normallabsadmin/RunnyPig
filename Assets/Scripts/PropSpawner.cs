@@ -15,6 +15,8 @@ public class PropSpawner : MonoBehaviour {
 
     public Transform bin;
 
+    private int _suckerCoolDown;
+
 
     public void SpawnFloor()
     {
@@ -30,13 +32,40 @@ public class PropSpawner : MonoBehaviour {
 
     public void SpawnObstacle( )
     {
-       
-        var randomOb = (int)Random.Range(0f, _obstacles.Length);
+
+        int adjustedLen;
+        //suckers need a cool down period
+        // at zero it's okay to spawn a sucker again
+        if(_suckerCoolDown > 0)
+        {
+            adjustedLen = _obstacles.Length - 4;
+        }
+        else
+        {
+            adjustedLen = _obstacles.Length;
+        }
+
+        var randomOb = (int)Random.Range(0f, adjustedLen); 
+
+        //if we do spawn a sucker set the cool down period
+        if(randomOb >= 6)
+        {
+            _suckerCoolDown = 3;
+        }
+
         var newPos = new Vector2(_obNextX, 0f);
         var newOb = (GameObject)Instantiate(_obstacles[randomOb], newPos, Quaternion.identity);
         newOb.GetComponent<ObstacleCluster>()._spawnMaster = gameObject;
         newOb.transform.parent = bin;
         Invoke("SpawnObstacle", (nextFloorSpawnTime * Time.deltaTime) * 2);
+
+        _suckerCoolDown--;
+        if(_suckerCoolDown < 0)
+        {
+            _suckerCoolDown = 0;
+        }
+
+
     }
 
     void Start()
