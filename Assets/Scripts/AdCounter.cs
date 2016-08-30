@@ -9,7 +9,7 @@ public class AdCounter : MonoBehaviour {
 	void Update () {
         if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
         { 
-            GetComponent<Text>().text = "PLAYS UNTIL NEXT AD " + (16 - PlayerPrefs.GetInt("Deaths")).ToString("00");
+            GetComponent<Text>().text = "PLAYS UNTIL NEXT AD " + (11 - PlayerPrefs.GetInt("Deaths")).ToString("00");
         }
     }
 }
