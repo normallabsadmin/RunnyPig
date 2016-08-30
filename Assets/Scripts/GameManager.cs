@@ -56,7 +56,9 @@ public class GameManager : MonoBehaviour {
         else
         {
             PlayerPrefs.SetInt("Deaths", 0);
-            ShowAd();
+            if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer) { 
+                ShowAd();
+            }
         }
 
 

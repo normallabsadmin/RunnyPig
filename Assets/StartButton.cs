@@ -12,7 +12,7 @@ public class StartButton : MonoBehaviour {
         }
         else
         {
-            GetComponent<Text>().text = "Click";
+            GetComponent<Text>().text = "Press Down";
         }
 	}
 	

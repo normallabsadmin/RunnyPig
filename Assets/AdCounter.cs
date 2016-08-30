@@ -7,6 +7,9 @@ public class AdCounter : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        GetComponent<Text>().text = "PLAYS UNTIL NEXT AD " + (15 - PlayerPrefs.GetInt("Deaths")).ToString("00");
-	}
+        if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
+        { 
+            GetComponent<Text>().text = "PLAYS UNTIL NEXT AD " + (16 - PlayerPrefs.GetInt("Deaths")).ToString("00");
+        }
+    }
 }
