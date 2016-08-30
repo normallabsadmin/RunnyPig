@@ -12,11 +12,13 @@ public class GameManager : MonoBehaviour {
 
     public GameObject _player;
     public GameObject _musicBox;
+    public GameObject _fxBox;
     public GameObject _gameCanvas;
     public GameObject _goCanvas;
     public GameObject _scoreBoard;
 
     static GameObject _currentMusicBox;
+    static GameObject _currentFXBox;
 
 
     void Start()
@@ -24,6 +26,11 @@ public class GameManager : MonoBehaviour {
         if(_currentMusicBox == null)
         {
             _currentMusicBox = (GameObject)Instantiate(_musicBox,transform.position, Quaternion.identity);
+        }
+
+        if (_currentFXBox == null)
+        {
+            _currentFXBox = (GameObject)Instantiate(_fxBox, transform.position, Quaternion.identity);
         }
     }
 
