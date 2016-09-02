@@ -49,17 +49,20 @@ public class GameManager : MonoBehaviour {
     {
         var newScore = _scoreBoard.GetComponent<ScoreManager>()._myScore;
         _scoreBoard.SetActive(false);
-        
-        if(PlayerPrefs.GetInt("Deaths") < 7)
+
+        var dth = PlayerPrefs.GetInt("Deaths");
+
+        if (dth < 7)
         {
-            var dth = PlayerPrefs.GetInt("Deaths");
+            
             PlayerPrefs.SetInt("Deaths", dth + 1);
         }
         else
         {
             PlayerPrefs.SetInt("Deaths", 0);
-           // if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer) { 
+          
                ShowAd();
+            // if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer) { 
             //}
         }
 
