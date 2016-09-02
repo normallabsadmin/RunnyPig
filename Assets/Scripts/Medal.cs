@@ -18,25 +18,17 @@ public class Medal : MonoBehaviour {
         {
             medalHolder.sprite = _medals[1];
         }
-        else if (score <= 75)
+        else if (score <= 100)
         {
             medalHolder.sprite = _medals[2];
         }
-        else if (score <= 100)
+        else if (score <= 150)
         {
             medalHolder.sprite = _medals[3];
         }
-        else if (score <= 150)
-        {
-            medalHolder.sprite = _medals[4];
-        }
         else if (score <= 200)
         {
-            medalHolder.sprite = _medals[5];
-        }
-        else
-        {
-            medalHolder.sprite = _medals[6];
+            medalHolder.sprite = _medals[4];
         }
     }
 }

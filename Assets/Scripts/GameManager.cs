@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour {
 
     void Start()
     {
+        //PlayerPrefs.DeleteAll();
+
         if(_currentMusicBox == null)
         {
             _currentMusicBox = (GameObject)Instantiate(_musicBox,transform.position, Quaternion.identity);
@@ -48,7 +50,7 @@ public class GameManager : MonoBehaviour {
         var newScore = _scoreBoard.GetComponent<ScoreManager>()._myScore;
         _scoreBoard.SetActive(false);
         
-        if(PlayerPrefs.GetInt("Deaths") < 10)
+        if(PlayerPrefs.GetInt("Deaths") < 7)
         {
             var dth = PlayerPrefs.GetInt("Deaths");
             PlayerPrefs.SetInt("Deaths", dth + 1);
@@ -56,9 +58,9 @@ public class GameManager : MonoBehaviour {
         else
         {
             PlayerPrefs.SetInt("Deaths", 0);
-            if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer) { 
-                ShowAd();
-            }
+           // if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer) { 
+               ShowAd();
+            //}
         }
 
 
